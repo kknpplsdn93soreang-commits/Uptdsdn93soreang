@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Resmi SD 93 Soreang</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: '#e11d48', // Merah Elegan (Rose 600)
+                        primaryDark: '#be123c',
+                        secondary: '#1e3a8a', // Biru Formal (Blue 900)
+                        surface: '#f8fafc', // Abu-abu sangat muda bersih (Slate 50)
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; overflow-x: hidden; scroll-behavior: smooth; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .page-section { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; }
+        .page-section.active { display: block; opacity: 1; }
+        
+        .nav-item .dropdown { display: none; }
+        .nav-item:hover .dropdown { display: block; animation: fadeIn 0.2s; }
+        
+        .org-line-vertical { width: 2px; background-color: #cbd5e1; margin: 0 auto; }
+        .org-line-horizontal { height: 2px; background-color: #cbd5e1; width: 100%; position: absolute; top: 0; z-index: -1; }
+        
+        .star-hover:hover ~ .star-hover { color: #e2e8f0; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeSlide { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .animate-dash-panel { animation: fadeSlide 0.25s ease-out forwards; }
+        
+        /* Indikator Status Database */
+        .db-status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-left: 6px; }
+        .db-connecting { background-color: #f59e0b; animation: pulse 1s infinite; }
+        .db-connected { background-color: #10b981; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body class="text-slate-700 antialiased flex flex-col min-h-screen">
+
+    <!-- NAVBAR PUBLIK -->
+    <nav id="public-navbar" class="fixed w-full z-50 transition-all duration-300 bg-white shadow-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="window.navigate('home')">
+                    <div class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-inner group-hover:bg-primaryDark transition-colors">
+                        SD
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg text-secondary leading-tight uppercase tracking-wide">SD 93 Soreang</span>
+                        <span class="text-xs text-slate-500 font-medium flex items-center">Kabupaten Maros <span id="status-koneksi" class="db-status-dot db-connecting" title="Menyambungkan ke Server..."></span></span>
+                    </div>
+                </div>
+
+                <div class="hidden lg:flex space-x-1 items-center">
+                    <button onclick="window.navigate('home')" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-primary transition-colors cursor-pointer">Beranda</button>
+                    
+                    <div class="relative nav-item py-6">
+                        <button class="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-primary transition-colors flex items-center gap-1 cursor-pointer">
+                            Profil <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                        </button>
+                        <div class="dropdown absolute top-[70px] left-0 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-2 z-50">
+                            <button onclick="window.navigate('struktur')" class="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-primary cursor-pointer">Struktur Organisasi</button>
+                            <button onclick="window.navigate('guru')" class="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-primary cursor-pointer">Profil Guru & Staf</button>
+                        </div>
+                    </div>
+
+                    <div class="relative nav-item py-6">
+                        <button class="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-primary transition-colors flex items-center gap-1 cursor-pointer">
+                            Publikasi <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                        </button>
+                        <div class="dropdown absolute top-[70px] left-0 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-2 z-50">
+                            <button onclick="window.navigate('berita')" class="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-primary cursor-pointer">Berita & Artikel</button>
+                            <button onclick="window.navigate('galeri')" class="w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-primary cursor-pointer">Galeri Foto</button>
+                        </div>
+                    </div>
+
+                    <button onclick="window.openLoginModal()" class="ml-4 px-5 py-2 bg-red-50 text-primary hover:bg-primary hover:text-white rounded-full text-sm font-bold transition-all flex items-center gap-2 border border-red-100 shadow-sm cursor-pointer">
+                        <i class="fa-solid fa-shield-halved"></i> Operator
+                    </button>
+                </div>
+
+                <button class="lg:hidden text-slate-600 text-2xl hover:text-primary focus:outline-none cursor-pointer" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 absolute w-full shadow-lg z-40">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <button onclick="window.navigate('home'); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-primary rounded-md cursor-pointer">Beranda</button>
+                <button onclick="window.navigate('struktur'); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-primary rounded-md cursor-pointer">Struktur Organisasi</button>
+                <button onclick="window.navigate('guru'); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-primary rounded-md cursor-pointer">Guru & Staf</button>
+                <button onclick="window.navigate('berita'); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-primary rounded-md cursor-pointer">Berita & Artikel</button>
+                <button onclick="window.navigate('galeri'); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:bg-slate-50 hover:text-primary rounded-md cursor-pointer">Galeri Foto</button>
+                <button onclick="window.openLoginModal(); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left px-3 py-3 mt-2 text-base font-bold text-white bg-primary rounded-md text-center cursor-pointer">Login Operator</button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="global-back-btn" class="hidden w-full bg-white border-b border-slate-100 py-3 sticky top-20 z-40 shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <button onclick="window.goBack()" class="text-slate-600 hover:text-primary font-semibold text-sm flex items-center gap-2 transition-colors bg-slate-50 px-4 py-2 rounded-lg border border-slate-200 hover:border-primary/30 hover:bg-red-50 cursor-pointer">
+                <i class="fa-solid fa-arrow-left"></i> Kembali Ke Halaman Sebelumnya
+            </button>
+        </div>
+    </div>
+
+    <!-- KONTEN UTAMA PUBLIK -->
+    <main class="flex-grow pt-20 flex flex-col relative" id="main-content">
+
+        <section id="home" class="page-section active flex-grow">
+            <div class="relative min-h-[85vh] w-full flex items-center overflow-hidden bg-slate-900">
+                <div class="absolute inset-0 z-0">
+                    <img id="hero-img-bg" src="" alt="Gedung Sekolah" class="w-full h-full object-cover transition-opacity duration-700 opacity-60" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
+                    <div id="hero-gradient-overlay" class="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/70 to-transparent transition-all duration-500"></div>
+                </div>
+                
+                <div class="relative z-10 w-full px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto py-12">
+                    <div class="flex flex-col md:flex-row gap-12 items-center justify-between w-full">
+                        <div class="max-w-2xl text-white">
+                            <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white font-bold text-xs rounded-full mb-6 border border-white/30 uppercase tracking-widest shadow-sm">
+                                Selamat Datang Di
+                            </div>
+                            <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 leading-tight drop-shadow-lg">
+                                SD 93 <span class="text-primary drop-shadow-md">SOREANG</span>
+                            </h1>
+                            <p class="text-lg md:text-xl text-slate-200 mb-8 leading-relaxed font-medium max-w-lg drop-shadow">
+                                Membentuk generasi yang cerdas, berkarakter, dan berbudaya luhur dalam lingkungan belajar yang inspiratif.
+                            </p>
+                        </div>
+                        
+                        <div class="w-full md:w-80 bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 overflow-hidden shrink-0 transform hover:-translate-y-1 transition-transform">
+                            <div class="flex flex-col">
+                                <button onclick="window.navigate('guru')" class="w-full text-left px-6 py-5 border-b border-white/10 text-white font-semibold hover:bg-white/20 transition-all flex justify-between items-center group text-lg cursor-pointer">
+                                    Profil Guru <i class="fa-solid fa-chevron-right text-sm opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all"></i>
+                                </button>
+                                <button onclick="window.navigate('struktur')" class="w-full text-left px-6 py-5 border-b border-white/10 text-white font-semibold hover:bg-white/20 transition-all flex justify-between items-center group text-lg cursor-pointer">
+                                    Struktur Organisasi <i class="fa-solid fa-chevron-right text-sm opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all"></i>
+                                </button>
+                                <button onclick="window.navigate('berita')" class="w-full text-left px-6 py-5 border-b border-white/10 text-white font-semibold hover:bg-white/20 transition-all flex justify-between items-center group text-lg cursor-pointer">
+                                    Berita & Artikel <i class="fa-solid fa-chevron-right text-sm opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all"></i>
+                                </button>
+                                <button onclick="window.navigate('galeri')" class="w-full text-left px-6 py-5 text-white font-semibold hover:bg-white/20 transition-all flex justify-between items-center group text-lg cursor-pointer">
+                                    Galeri Kegiatan <i class="fa-solid fa-chevron-right text-sm opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-20 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto bg-surface text-center">
+                <h2 class="text-3xl font-bold text-slate-800">Kritik, Saran & Ulasan</h2>
+                <div class="w-24 h-1.5 bg-primary rounded-full mt-3 mx-auto"></div>
+                <p class="text-slate-500 mt-4 mb-8 text-base max-w-2xl mx-auto">Pesan dan ulasan Anda sangat berarti untuk kemajuan SD 93 Soreang. Ulasan yang dikirimkan bersifat privat dan hanya akan dibaca oleh pihak pengelola sekolah di Dasbor Operator.</p>
+                <button onclick="window.openReviewModal()" class="px-8 py-4 bg-primary hover:bg-primaryDark text-white rounded-full text-base font-bold shadow-lg shadow-primary/30 transition-all transform hover:-translate-y-1 inline-flex items-center gap-3 cursor-pointer">
+                    <i class="fa-solid fa-envelope-open-text text-xl"></i> Tulis Pesan / Ulasan Anda
+                </button>
+            </div>
+        </section>
+
+        <section id="struktur" class="page-section bg-surface py-12 px-4 flex-grow">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-800 uppercase tracking-tight">Struktur Organisasi</h2>
+                    <div class="w-24 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+                    <p class="text-slate-500 mt-4 max-w-2xl mx-auto">Bagan hierarki kepengurusan SD 93 Soreang.</p>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 overflow-x-auto">
+                    <div id="org-chart-container" class="min-w-[800px] flex flex-col items-center py-4"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="guru" class="page-section bg-surface py-12 px-4 flex-grow">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-800 uppercase tracking-tight">Tenaga Pendidik & Staf</h2>
+                    <div class="w-24 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+                </div>
+                <div id="guru-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+            </div>
+        </section>
+
+        <section id="berita" class="page-section bg-surface py-12 px-4 flex-grow">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex justify-between items-end mb-10 border-b border-slate-200 pb-4">
+                    <div>
+                        <h2 class="text-3xl font-bold text-slate-800">Berita & Artikel</h2>
+                        <p class="text-slate-500 mt-2">Kumpulan informasi dan kegiatan terbaru sekolah.</p>
+                    </div>
+                </div>
+                <div id="berita-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            </div>
+        </section>
+
+        <section id="berita-detail" class="page-section bg-white py-10 px-4 flex-grow">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-6 flex gap-3 text-sm text-slate-500 font-medium items-center">
+                    <span id="detail-kategori" class="bg-red-50 text-primary px-3 py-1 rounded-full uppercase text-[10px] tracking-wider font-bold">Kategori</span>
+                    <i class="fa-regular fa-calendar"></i> <span id="detail-tgl">Tanggal</span>
+                </div>
+                <h1 id="detail-judul" class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-8 leading-tight tracking-tight">Judul Berita</h1>
+                <div class="w-full rounded-2xl overflow-hidden mb-10 shadow-lg border border-slate-100">
+                    <img id="detail-img" src="" alt="Foto Cover" class="w-full h-auto max-h-[500px] object-cover" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
+                </div>
+                <div id="detail-konten" class="prose prose-slate max-w-none text-lg text-slate-700 leading-relaxed font-normal"></div>
+            </div>
+        </section>
+
+        <section id="galeri" class="page-section bg-surface py-12 px-4 flex-grow">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-slate-800">Galeri Kegiatan</h2>
+                    <div class="w-24 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+                </div>
+                <div id="galeri-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[250px]"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-secondary text-white pt-16 pb-8 border-t-4 border-primary mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                        <div class="w-8 h-8 bg-white text-secondary rounded flex items-center justify-center text-sm">SD</div> 
+                        93 SOREANG
+                    </h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">Membentuk generasi penerus bangsa yang beriman, bertaqwa, cerdas, terampil dan mandiri serta berwawasan lingkungan.</p>
+                    <div id="footer-sosmed" class="flex gap-4"></div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6 border-b border-slate-700 pb-2 inline-block">Menu Cepat</h4>
+                    <ul class="space-y-3 text-sm text-slate-300">
+                        <li><a href="#" onclick="window.navigate('struktur')" class="hover:text-white transition-colors cursor-pointer"><i class="fa-solid fa-chevron-right text-[10px] mr-2"></i>Struktur Organisasi</a></li>
+                        <li><a href="#" onclick="window.navigate('guru')" class="hover:text-white transition-colors cursor-pointer"><i class="fa-solid fa-chevron-right text-[10px] mr-2"></i>Tenaga Pendidik</a></li>
+                        <li><a href="#" onclick="window.navigate('berita')" class="hover:text-white transition-colors cursor-pointer"><i class="fa-solid fa-chevron-right text-[10px] mr-2"></i>Berita Terbaru</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-6 border-b border-slate-700 pb-2 inline-block">Kontak</h4>
+                    <ul class="space-y-4 text-sm text-slate-300">
+                        <li class="flex items-start gap-3"><i class="fa-solid fa-location-dot mt-1 text-primary"></i> <span>Jl. Pendidikan No. 123, Soreang, Maros, Sul-Sel</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-primary"></i> <span>(0411) 1234567</span></li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-primary"></i> <span>info@sd93soreang.sch.id</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-sm text-slate-500 border-t border-slate-800 pt-8">
+                &copy; 2026 SD 93 Soreang, Maros. Hak Cipta Dilindungi.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================================================= -->
+    <!-- PANEL DASBOR OPERATOR -->
+    <!-- ========================================================================= -->
+    <div id="operator-dashboard" class="fixed inset-0 bg-slate-50 z-[999] flex-col md:flex-row font-sans w-full h-full md:overflow-hidden overflow-y-auto" style="display: none;">
+        
+        <aside class="w-full md:w-64 bg-slate-900 text-slate-300 flex flex-col shrink-0 md:h-full z-20 shadow-2xl relative">
+            <div class="p-6 border-b border-slate-800 flex items-center justify-between sticky top-0 bg-slate-900 z-10">
+                <div>
+                    <h2 class="font-bold text-white text-lg leading-tight">Panel Operator</h2>
+                    <p class="text-xs text-primary mt-1">SD 93 Soreang</p>
+                </div>
+                <button onclick="window.logoutDashboard()" class="text-slate-500 hover:text-white md:hidden cursor-pointer p-2"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            
+            <div class="p-4 space-y-6 flex-grow overflow-y-auto">
+                <div>
+                    <button onclick="window.switchDashPanel('home')" class="dash-nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all cursor-pointer bg-primary text-white" data-target="home">
+                        <i class="fa-solid fa-gauge-high w-5 text-center"></i> Beranda Dasbor
+                    </button>
+                </div>
+                <div>
+                    <h3 class="px-4 text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Data Sekolah</h3>
+                    <div class="space-y-1">
+                        <button onclick="window.switchDashPanel('profil')" class="dash-nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm hover:bg-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer" data-target="profil">
+                            <i class="fa-solid fa-building w-5 text-center text-slate-400"></i> Profil Sekolah
+                        </button>
+                        <button onclick="window.switchDashPanel('guru')" class="dash-nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm hover:bg-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer" data-target="guru">
+                            <i class="fa-solid fa-users w-5 text-center text-slate-400"></i> Guru & Tendik
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="px-4 text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Publikasi</h3>
+                    <div class="space-y-1">
+                        <button onclick="window.switchDashPanel('berita')" class="dash-nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm hover:bg-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer" data-target="berita">
+                            <i class="fa-regular fa-newspaper w-5 text-center text-slate-400"></i> Berita & Artikel
+                        </button>
+                        <button onclick="window.switchDashPanel('galeri')" class="dash-nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm hover:bg-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer" data-target="galeri">
+                            <i class="fa-solid fa-images w-5 text-center text-slate-400"></i> Galeri Foto
+                        </button>
+                        <button onclick="window.switchDashPanel('ulasan')" class="dash-nav-btn w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm hover:bg-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer" data-target="ulasan">
+                            <i class="fa-solid fa-star w-5 text-center text-slate-400"></i> Ulasan Masuk
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-4 border-t border-slate-800 sticky bottom-0 bg-slate-900 mt-auto">
+                <button onclick="window.logoutDashboard()" class="w-full py-2.5 px-4 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm font-bold transition-colors flex items-center justify-center gap-2 shadow-lg cursor-pointer">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar Dasbor
+                </button>
+            </div>
+        </aside>
+
+        <main class="flex-1 md:h-full md:overflow-y-auto p-4 md:p-10 relative scroll-smooth bg-slate-50" id="dash-workspace">
+            <div class="max-w-6xl mx-auto pb-20">
+                <div id="dash-home" class="dash-panel block animate-dash-panel">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-6">Ringkasan Sistem (Real-time Cloud)</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between h-32 border-t-4 border-t-secondary">
+                            <div class="text-slate-500 text-sm font-semibold uppercase tracking-wider">Total Staf</div>
+                            <div class="text-3xl font-black text-secondary" id="stat-guru">0</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between h-32 border-t-4 border-t-secondary">
+                            <div class="text-slate-500 text-sm font-semibold uppercase tracking-wider">Berita Aktif</div>
+                            <div class="text-3xl font-black text-secondary" id="stat-berita">0</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between h-32 border-t-4 border-t-secondary">
+                            <div class="text-slate-500 text-sm font-semibold uppercase tracking-wider">Foto Galeri</div>
+                            <div class="text-3xl font-black text-secondary" id="stat-galeri">0</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between h-32 border-t-4 border-t-primary">
+                            <div class="text-slate-500 text-sm font-semibold uppercase tracking-wider">Ulasan</div>
+                            <div class="text-3xl font-black text-primary" id="stat-ulasan">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dash-profil" class="dash-panel hidden animate-dash-panel">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-6">Pengaturan Profil & Tampilan</h2>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-8">
+                        <div>
+                            <h3 class="font-bold text-slate-800 mb-3 border-b pb-2 flex items-center gap-2"><i class="fa-solid fa-image text-slate-400"></i> Foto Utama Beranda</h3>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Tautan (URL) Gambar</label>
+                            <input type="text" id="input-profil-hero" oninput="window.updateHeroPreview(this.value)" class="w-full border-slate-300 rounded-lg border p-3 text-sm focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all mb-3" placeholder="https://example.com/foto.jpg">
+                            <div class="w-full h-48 bg-slate-100 rounded-lg overflow-hidden border border-slate-200 relative">
+                                <img id="preview-profil-hero" src="" class="w-full h-full object-cover" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                                    <span class="text-white font-bold text-sm bg-black/50 px-3 py-1 rounded">Pratinjau Beranda</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-slate-800 mb-3 border-b pb-2 flex items-center gap-2"><i class="fa-solid fa-palette text-slate-400"></i> Tema Gradasi Beranda</h3>
+                            <div class="flex flex-wrap gap-4" id="grad-options">
+                                <label class="cursor-pointer group">
+                                    <input type="radio" name="hero_grad" value="from-secondary/90 via-secondary/70 to-transparent" class="peer hidden" checked>
+                                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-900 via-blue-800 to-blue-500 peer-checked:ring-4 ring-primary ring-offset-2 transition-all hover:scale-110 shadow-md"></div>
+                                </label>
+                                <label class="cursor-pointer group">
+                                    <input type="radio" name="hero_grad" value="from-slate-900/90 via-slate-800/70 to-slate-500/50" class="peer hidden">
+                                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-slate-900 via-slate-800 to-slate-500 peer-checked:ring-4 ring-primary ring-offset-2 transition-all hover:scale-110 shadow-md"></div>
+                                </label>
+                                <label class="cursor-pointer group">
+                                    <input type="radio" name="hero_grad" value="from-primary/90 via-primaryDark/70 to-transparent" class="peer hidden">
+                                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-rose-600 via-rose-800 to-rose-400 peer-checked:ring-4 ring-primary ring-offset-2 transition-all hover:scale-110 shadow-md"></div>
+                                </label>
+                                <label class="cursor-pointer group">
+                                    <input type="radio" name="hero_grad" value="from-emerald-900/90 via-emerald-700/70 to-transparent" class="peer hidden">
+                                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-emerald-900 via-emerald-700 to-emerald-400 peer-checked:ring-4 ring-primary ring-offset-2 transition-all hover:scale-110 shadow-md"></div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold text-slate-800 mb-3 border-b pb-2 flex items-center gap-2"><i class="fa-solid fa-share-nodes text-slate-400"></i> Tautan Sosial Media (Footer)</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-brands fa-facebook text-blue-600 mr-1"></i> Facebook</label>
+                                    <input type="text" id="input-sosmed-fb" class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-secondary outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-brands fa-instagram text-pink-600 mr-1"></i> Instagram</label>
+                                    <input type="text" id="input-sosmed-ig" class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-secondary outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1"><i class="fa-brands fa-youtube text-red-600 mr-1"></i> YouTube</label>
+                                    <input type="text" id="input-sosmed-yt" class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-secondary outline-none">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pt-4 border-t border-slate-100 text-right">
+                            <button id="btn-save-profil" onclick="window.saveProfil()" class="px-6 py-2.5 bg-secondary hover:bg-blue-800 text-white rounded-lg text-sm font-bold shadow-md transition-colors cursor-pointer">Simpan Perubahan Cloud</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dash-guru" class="dash-panel hidden animate-dash-panel"></div>
+                <div id="dash-berita" class="dash-panel hidden animate-dash-panel"></div>
+                <div id="dash-galeri" class="dash-panel hidden animate-dash-panel"></div>
+                <div id="dash-ulasan" class="dash-panel hidden animate-dash-panel"></div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL AREA -->
+    <div id="login-modal" class="fixed inset-0 z-[110] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-transform scale-95" id="login-box">
+            <div class="p-8 text-center border-b border-slate-100 relative">
+                <button onclick="window.closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+                <div class="w-16 h-16 bg-red-50 text-primary rounded-full flex items-center justify-center text-3xl mx-auto mb-4"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3 class="text-xl font-bold text-slate-800">Akses Operator</h3>
+                <p class="text-xs text-slate-500 mt-1">Sandi: <strong>sekolahkuhebat1</strong></p>
+            </div>
+            <div class="p-8 space-y-4">
+                <div>
+                    <input type="password" id="login-password" class="w-full border-slate-300 rounded-lg border p-3 text-sm focus:ring-2 focus:ring-primary outline-none text-center font-medium tracking-widest bg-slate-50" placeholder="Kata Sandi..." onkeypress="if(event.key === 'Enter') window.processMockLogin()">
+                </div>
+                <button onclick="window.processMockLogin()" class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-3 rounded-lg text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer">
+                    Masuk Dasbor <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="crud-modal" class="fixed inset-0 z-[1000] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-transform scale-95 flex flex-col max-h-[90vh]" id="crud-box">
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50 shrink-0">
+                <h3 class="text-lg font-bold text-slate-800" id="crud-title">Form Data</h3>
+                <button onclick="window.closeFormModal()" class="text-slate-400 hover:text-slate-700 cursor-pointer"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="p-6 space-y-4 overflow-y-auto flex-1 hide-scrollbar" id="crud-form-body"></div>
+            <div class="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3 shrink-0">
+                <button onclick="window.closeFormModal()" class="px-4 py-2 bg-white border border-slate-300 text-slate-600 rounded-lg text-sm font-semibold hover:bg-slate-50 cursor-pointer">Batal</button>
+                <button id="btn-save-data" onclick="window.processSaveData()" class="px-6 py-2 bg-secondary hover:bg-blue-800 text-white rounded-lg text-sm font-bold shadow-md transition-colors cursor-pointer">Simpan Data</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-modal" class="fixed inset-0 z-[1000] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-transform scale-95" id="confirm-box">
+            <div class="p-6 text-center">
+                <div class="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center text-3xl mx-auto mb-4"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Hapus Data?</h3>
+                <p class="text-sm text-slate-500 mb-6">Data ini akan dihapus dari Cloud selamanya.</p>
+                <div class="flex gap-3 justify-center">
+                    <button onclick="window.closeConfirmModal()" class="px-5 py-2.5 bg-slate-100 text-slate-700 rounded-lg font-bold hover:bg-slate-200 transition-colors cursor-pointer">Batal</button>
+                    <button id="btn-execute-delete" onclick="window.executeDelete()" class="px-5 py-2.5 bg-red-500 text-white rounded-lg font-bold hover:bg-red-600 transition-colors shadow-md cursor-pointer">Ya, Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="review-modal" class="fixed inset-0 z-[130] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity" onclick="if(event.target === this) window.closeReviewModal()">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-transform scale-95" id="review-box">
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2"><i class="fa-solid fa-star text-yellow-400"></i> Kirim Ulasan</h3>
+                <button onclick="window.closeReviewModal()" class="text-slate-400 hover:text-slate-700 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 space-y-5 text-left">
+                <div class="flex flex-col items-center mb-4">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Nilai Kepuasan Anda</label>
+                    <div class="flex flex-row-reverse justify-center group" id="interactive-stars">
+                        <i class="fa-solid fa-star text-3xl text-slate-200 cursor-pointer star-hover transition-colors peer peer-hover:text-yellow-400" data-val="5" onclick="window.setRating(5)"></i>
+                        <i class="fa-solid fa-star text-3xl text-slate-200 cursor-pointer star-hover transition-colors peer peer-hover:text-yellow-400" data-val="4" onclick="window.setRating(4)"></i>
+                        <i class="fa-solid fa-star text-3xl text-slate-200 cursor-pointer star-hover transition-colors peer peer-hover:text-yellow-400" data-val="3" onclick="window.setRating(3)"></i>
+                        <i class="fa-solid fa-star text-3xl text-slate-200 cursor-pointer star-hover transition-colors peer peer-hover:text-yellow-400" data-val="2" onclick="window.setRating(2)"></i>
+                        <i class="fa-solid fa-star text-3xl text-slate-200 cursor-pointer star-hover transition-colors peer peer-hover:text-yellow-400" data-val="1" onclick="window.setRating(1)"></i>
+                    </div>
+                    <input type="hidden" id="review-rating-val" value="0">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Nama Lengkap</label>
+                    <input type="text" id="review-nama" class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-primary outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Peran / Status</label>
+                    <input type="text" id="review-peran" placeholder="Cth: Orang Tua, Alumni..." class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-primary outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Pesan Ulasan</label>
+                    <textarea id="review-teks" rows="3" class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-primary outline-none" placeholder="Tuliskan pendapat Anda..."></textarea>
+                </div>
+                <button id="btn-submit-review" onclick="window.submitReview()" class="w-full bg-primary hover:bg-primaryDark text-white font-bold py-3 rounded-lg text-sm mt-2 transition-all shadow-md hover:shadow-lg cursor-pointer">
+                    Kirim Ulasan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="profile-modal" class="fixed inset-0 z-[140] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity" onclick="if(event.target === this) window.closeProfileModal()">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-transform scale-95 relative" id="profile-box">
+            <button onclick="window.closeProfileModal()" class="absolute top-4 right-4 bg-white/50 backdrop-blur rounded-full w-8 h-8 flex items-center justify-center text-slate-700 hover:bg-white z-10 shadow-sm cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            <div class="w-full h-32 bg-slate-100 relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-secondary to-blue-700"></div>
+            </div>
+            <div class="px-8 pb-8 relative -mt-16 text-center">
+                <img id="pm-img" src="" class="w-32 h-32 rounded-full border-4 border-white object-cover mx-auto shadow-md bg-white mb-4" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
+                <h3 id="pm-nama" class="text-2xl font-bold text-slate-800">Nama</h3>
+                <p id="pm-jabatan" class="text-primary font-bold text-sm tracking-wide uppercase mt-1 mb-4">Jabatan</p>
+                <div class="bg-slate-50 rounded-xl p-4 text-left border border-slate-100 space-y-3">
+                    <div>
+                        <label class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">NIP / NUPTK</label>
+                        <p id="pm-nip" class="text-sm font-medium text-slate-700">12345</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Mata Pelajaran / Tugas</label>
+                        <p id="pm-mapel" class="text-sm font-medium text-slate-700">Guru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox" class="fixed inset-0 z-[150] bg-black/95 hidden flex items-center justify-center p-4 opacity-0 transition-opacity" onclick="window.closeLightbox()">
+        <button class="absolute top-6 right-6 text-white/50 hover:text-white text-3xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+        <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] object-contain shadow-2xl rounded-sm" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
+        <p id="lightbox-caption" class="absolute bottom-6 left-0 w-full text-center text-white/80 font-medium"></p>
+    </div>
+
+    <div id="toast-container" class="fixed bottom-6 right-6 z-[2000] flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- PENGGUNAAN MODULE JS AGAR SESUAI STANDAR SDK FIREBASE MODERN (V11) -->
+    <script type="module">
+        // Import Modul Firebase Firestore (Cloud Database) & Auth Terbaru
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot, collection, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Konfigurasi Milik Anda yang Benar
+        const firebaseConfig = {
+            apiKey: "AIzaSyCRG-0JNhHcG0UxHg_eiNHg1A4N56a5CQw",
+            authDomain: "uptd-93-soreang.firebaseapp.com",
+            projectId: "uptd-93-soreang",
+            storageBucket: "uptd-93-soreang.firebasestorage.app",
+            messagingSenderId: "492085763522",
+            appId: "1:492085763522:web:3d4cd2cf1b9433a5a44a5b",
+            measurementId: "G-NKKH23W70B"
+        };
+
+        // Inisialisasi Firebase App
+        const app = initializeApp(firebaseConfig);
+        const firestoreDb = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Path Struktur Data Firebase yang Dianjurkan
+        const myAppId = 'sd93-soreang'; // Nama Identifikasi Aplikasi
+        const getColRef = (colName) => collection(firestoreDb, 'artifacts', myAppId, 'public', 'data', colName);
+        const getDocRef = (colName, docId) => doc(firestoreDb, 'artifacts', myAppId, 'public', 'data', colName, docId);
+
+        window.FALLBACK_IMG = "https://placehold.co/600x400/f1f5f9/94a3b8?text=Tidak+Ada+Foto";
+
+        // Database Sementara di Browser sebelum memuat dari Cloud
+        window.dbData = {
+            profil: { hero_img: "", gradient: "from-secondary/90 via-secondary/70 to-transparent", sosmed: { fb: "", ig: "", yt: "" } },
+            guru: [], berita: [], galeri: [], ulasan: []
+        };
+
+        let currentPublicPage = 'home';
+        let navHistory = [];
+        let pendingDelete = null;
+        let currentFormType = '';
+
+        // FUNGSI UTILITAS & TOAST
+        window.showCustomMessage = function(msg, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if(!container) return;
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 transform translate-x-full transition-transform duration-300 pointer-events-auto ${type === 'error' ? 'bg-red-600 text-white' : 'bg-slate-800 text-white'}`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-check'}"></i> <span class="text-sm font-medium">${msg}</span>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-x-full'), 10);
+            setTimeout(() => { toast.classList.add('translate-x-full'); setTimeout(() => toast.remove(), 300); }, 3000);
+        };
+
+        // =========================================================
+        // === SINKRONISASI REAL-TIME CLOUD (FIRESTORE) ===
+        // =========================================================
+        async function initFirebaseRealtime() {
+            try {
+                // Coba autentikasi anonim, tapi jangan hentikan proses jika gagal/belum diaktifkan di Console
+                try {
+                    await signInAnonymously(auth);
+                } catch (authError) {
+                    console.warn("Peringatan Auth: Autentikasi Anonim belum diaktifkan di Firebase Console. Mengakses database sebagai Tamu (Guest)...");
+                }
+                
+                // Jika proses berlanjut, ganti indikator UI di pojok kiri atas
+                const statIcon = document.getElementById('status-koneksi');
+                if(statIcon) { statIcon.classList.remove('db-connecting'); statIcon.classList.add('db-connected'); statIcon.title = 'Terhubung ke Database Cloud'; }
+
+                // 1. Memantau Pengaturan Profil secara langsung
+                onSnapshot(getDocRef('profil', 'main'), (snap) => {
+                    if (snap.exists()) {
+                        window.dbData.profil = snap.data();
+                    } else {
+                        // Jika Profil masih kosong (baru pertama kali buka App), buat data default
+                        setDoc(getDocRef('profil', 'main'), {
+                            hero_img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
+                            gradient: "from-secondary/90 via-secondary/70 to-transparent",
+                            sosmed: { fb: "", ig: "", yt: "" }
+                        });
+                    }
+                    window.renderBerandaSetup();
+                    if(document.getElementById('dash-profil')?.classList.contains('block')) window.loadDashProfil();
+                }, (err) => console.error("Sinkronisasi Profil Gagal:", err));
+
+                // 2. Fungsi Pantau Koleksi (Guru, Berita, Galeri, Ulasan)
+                const listenCollection = (colName) => {
+                    onSnapshot(getColRef(colName), (snap) => {
+                        let items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                        // Mengurutkan di dalam memori berdasarkan waktu (ID/CreatedAt terbaru di atas)
+                        items.sort((a,b) => b.id - a.id); 
+                        window.dbData[colName] = items;
+                        
+                        window.updateDashStats();
+                        
+                        // Perbarui halaman publik otomatis jika pengunjung sedang melihat halaman tsb
+                        if (currentPublicPage === colName || (colName === 'guru' && currentPublicPage === 'struktur')) {
+                            if(colName === 'guru') { window.renderGuruPublik(); window.renderStrukturPublik(); }
+                            if(colName === 'berita') window.renderBeritaPublik();
+                            if(colName === 'galeri') window.renderGaleriPublik();
+                        }
+                        
+                        // Perbarui Tabel Dasbor Operator otomatis jika Operator sedang membukanya
+                        const dashPanel = document.getElementById('dash-' + colName);
+                        if(dashPanel && dashPanel.classList.contains('block')) {
+                            if(colName === 'guru') window.renderTableDashGuru();
+                            if(colName === 'berita') window.renderTableDashBerita();
+                            if(colName === 'galeri') window.renderTableDashGaleri();
+                            if(colName === 'ulasan') window.renderTableDashUlasan();
+                        }
+                    }, (err) => console.error(`Sync ${colName} Err:`, err));
+                };
+
+                listenCollection('guru');
+                listenCollection('berita');
+                listenCollection('galeri');
+                listenCollection('ulasan');
+
+            } catch (err) {
+                console.error("Gagal terhubung ke Cloud Database:", err);
+                window.showCustomMessage("Terjadi masalah saat menyambungkan Database.", "error");
+            }
+        }
+
+        // =========================================================
+        // === SISTEM NAVIGASI DASBOR ===
+        // =========================================================
+        window.switchDashPanel = function(targetId) {
+            try {
+                const navBtns = document.querySelectorAll('.dash-nav-btn');
+                navBtns.forEach(btn => {
+                    btn.classList.remove('bg-primary', 'text-white');
+                    btn.classList.add('text-slate-300', 'hover:bg-slate-800');
+                    if(btn.dataset.target === targetId) {
+                        btn.classList.remove('text-slate-300', 'hover:bg-slate-800');
+                        btn.classList.add('bg-primary', 'text-white');
+                    }
+                });
+
+                const panels = document.querySelectorAll('.dash-panel');
+                panels.forEach(p => { p.classList.add('hidden'); p.classList.remove('block'); });
+
+                if (targetId === 'home') window.updateDashStats();
+                else if (targetId === 'profil') window.loadDashProfil();
+                else if (targetId === 'guru') window.renderTableDashGuru();
+                else if (targetId === 'berita') window.renderTableDashBerita();
+                else if (targetId === 'galeri') window.renderTableDashGaleri();
+                else if (targetId === 'ulasan') window.renderTableDashUlasan();
+
+                const activePanel = document.getElementById('dash-' + targetId);
+                if(activePanel) { activePanel.classList.remove('hidden'); activePanel.classList.add('block'); }
+
+                if(window.innerWidth < 768) { document.getElementById('dash-workspace').scrollIntoView({ behavior: 'smooth' }); }
+            } catch(e) { console.error("Dasbor Error:", e); }
+        };
+
+        // =========================================================
+        // === OTENTIKASI & MODAL OPERATOR ===
+        // =========================================================
+        window.processMockLogin = function() {
+            const pwd = document.getElementById('login-password').value;
+            if (pwd === 'sekolahkuhebat1') {
+                window.closeLoginModal();
+                const dash = document.getElementById('operator-dashboard');
+                dash.style.display = 'flex';
+                window.switchDashPanel('home');
+                window.showCustomMessage('Berhasil masuk ke Dasbor Operator.');
+            } else { window.showCustomMessage('Kata sandi salah atau kosong!', 'error'); }
+        };
+
+        window.logoutDashboard = function() {
+            const dash = document.getElementById('operator-dashboard');
+            dash.style.display = 'none';
+            window.renderBerandaSetup();
+            window.navigate(currentPublicPage, false); 
+            window.showCustomMessage('Anda telah keluar dari Dasbor.');
+        };
+
+        window.openLoginModal = function() {
+            if(document.getElementById('login-password')) document.getElementById('login-password').value = '';
+            const modal = document.getElementById('login-modal');
+            modal.classList.remove('hidden'); void modal.offsetWidth; modal.classList.remove('opacity-0'); document.getElementById('login-box').classList.remove('scale-95');
+        };
+        window.closeLoginModal = function() {
+            const modal = document.getElementById('login-modal');
+            modal.classList.add('opacity-0'); document.getElementById('login-box').classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        };
+
+        // =========================================================
+        // === NAVIGASI PUBLIK ===
+        // =========================================================
+        window.navigate = function(pageId, pushToHistory = true) {
+            if(pushToHistory && currentPublicPage !== pageId && currentPublicPage !== 'home') navHistory.push(currentPublicPage);
+            else if (pageId === 'home') navHistory = []; 
+            currentPublicPage = pageId;
+
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById(pageId);
+            
+            if(target) {
+                target.classList.add('active');
+                const backBtn = document.getElementById('global-back-btn');
+                if(backBtn) { if(pageId === 'home') backBtn.classList.add('hidden'); else backBtn.classList.remove('hidden'); }
+
+                if(pageId === 'guru') window.renderGuruPublik();
+                if(pageId === 'struktur') window.renderStrukturPublik();
+                if(pageId === 'berita') window.renderBeritaPublik();
+                if(pageId === 'galeri') window.renderGaleriPublik();
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        };
+
+        window.goBack = function() {
+            if(navHistory.length > 0) { window.navigate(navHistory.pop(), false); } else { window.navigate('home'); }
+        };
+
+        // =========================================================
+        // === RENDER DOM PUBLIK ===
+        // =========================================================
+        window.renderBerandaSetup = function() {
+            document.getElementById('hero-img-bg').src = window.dbData.profil.hero_img || window.FALLBACK_IMG;
+            document.getElementById('hero-gradient-overlay').className = `absolute inset-0 bg-gradient-to-r ${window.dbData.profil.gradient || 'from-secondary/90 via-secondary/70 to-transparent'} transition-all duration-500`;
+            
+            const ft = document.getElementById('footer-sosmed');
+            ft.innerHTML = '';
+            if(window.dbData.profil.sosmed?.fb) ft.innerHTML += `<a href="${window.dbData.profil.sosmed.fb}" target="_blank" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors text-lg"><i class="fa-brands fa-facebook-f"></i></a>`;
+            if(window.dbData.profil.sosmed?.ig) ft.innerHTML += `<a href="${window.dbData.profil.sosmed.ig}" target="_blank" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors text-lg"><i class="fa-brands fa-instagram"></i></a>`;
+            if(window.dbData.profil.sosmed?.yt) ft.innerHTML += `<a href="${window.dbData.profil.sosmed.yt}" target="_blank" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors text-lg"><i class="fa-brands fa-youtube"></i></a>`;
+        };
+
+        window.renderStrukturPublik = function() {
+            const container = document.getElementById('org-chart-container');
+            const kepsek = window.dbData.guru.find(g => g.posisi === 'kepsek');
+            const wakil = window.dbData.guru.filter(g => g.posisi === 'wakil');
+            const guru = window.dbData.guru.filter(g => g.posisi === 'guru');
+            const tendik = window.dbData.guru.filter(g => g.posisi === 'tendik');
+
+            const renderCard = (g) => `
+                <div onclick="window.openProfileModal(${g.id})" class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col items-center hover:shadow-md hover:border-primary/50 transition-all cursor-pointer w-48 relative mx-2 group">
+                    <img src="${g.foto || window.FALLBACK_IMG}" class="w-20 h-20 rounded-full object-cover border-4 border-slate-50 shadow-sm mb-3" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
+                    <h4 class="font-bold text-slate-800 text-sm text-center leading-tight line-clamp-2 group-hover:text-primary transition-colors">${g.nama}</h4>
+                    <p class="text-[10px] text-primary font-bold uppercase tracking-wider text-center mt-1 bg-red-50 px-2 py-1 rounded-full w-full truncate">${g.jabatan}</p>
+                </div>
+            `;
+
+            let html = '';
+            if(kepsek) html += `<div class="flex flex-col items-center">${renderCard(kepsek)}</div>`;
+            if(wakil.length > 0) html += `<div class="org-line-vertical h-8"></div><div class="flex justify-center flex-wrap gap-4 relative">${wakil.length > 1 ? '<div class="org-line-horizontal top-0"></div>' : ''}${wakil.map(w => `<div class="flex flex-col items-center pt-6 relative">${wakil.length > 1 ? '<div class="org-line-vertical h-6 absolute top-0"></div>' : ''}${renderCard(w)}</div>`).join('')}</div>`;
+            if(guru.length > 0) html += `<div class="org-line-vertical h-8"></div><div class="px-4 py-2 bg-slate-200 rounded-md text-xs font-bold text-slate-600 uppercase tracking-widest mb-6 inline-block">Tenaga Pendidik</div><div class="flex justify-center flex-wrap gap-6 max-w-4xl mx-auto">${guru.map(g => renderCard(g)).join('')}</div>`;
+            if(tendik.length > 0) html += `<div class="org-line-vertical h-8 mt-6"></div><div class="px-4 py-2 bg-slate-200 rounded-md text-xs font-bold text-slate-600 uppercase tracking-widest mb-6 inline-block">Tenaga Kependidikan</div><div class="flex justify-center flex-wrap gap-6 max-w-4xl mx-auto">${tendik.map(t => renderCard(t)).join('')}</div>`;
+
+            container.innerHTML = html || '<p class="text-slate-500 bg-slate-50 px-6 py-4 rounded-lg border border-slate-200">Struktur belum dikonfigurasi.</p>';
+        };
+
+        window.renderGuruPublik = function() {
+            const container = document.getElementById('guru-grid');
+            if(window.dbData.guru.length === 0) { container.innerHTML = '<div class="col-span-full text-center py-10 text-slate-500">Belum ada data guru/staf.</div>'; return; }
+            let html = '';
+            window.dbData.guru.forEach(g => {
+                html += `
+                    <div onclick="window.openProfileModal(${g.id})" class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <div class="aspect-[4/5] overflow-hidden relative bg-slate-100">
+                            <img src="${g.foto || window.FALLBACK_IMG}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
+                        </div>
+                        <div class="p-5 text-center">
+                            <h3 class="font-bold text-slate-800 text-[15px] line-clamp-1 group-hover:text-primary transition-colors">${g.nama}</h3>
+                            <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider mt-1.5">${g.jabatan}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        };
+
+        window.renderBeritaPublik = function() {
+            const container = document.getElementById('berita-grid');
+            if(window.dbData.berita.length === 0) { container.innerHTML = '<div class="col-span-full text-center py-10 text-slate-500">Belum ada berita dipublikasikan.</div>'; return; }
+            let html = '';
+            window.dbData.berita.forEach(b => {
+                html += `
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
+                        <div class="h-52 overflow-hidden relative cursor-pointer" onclick="window.openDetailBerita(${b.id})">
+                            <img src="${b.foto || window.FALLBACK_IMG}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
+                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded text-xs font-bold text-slate-700 shadow-sm">${b.tgl}</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex mb-3"><span class="bg-red-50 text-primary text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded">${b.kategori}</span></div>
+                            <h3 onclick="window.openDetailBerita(${b.id})" class="text-xl font-bold text-slate-800 mb-3 cursor-pointer hover:text-primary transition-colors line-clamp-2 leading-tight">${b.judul}</h3>
+                            <p class="text-sm text-slate-500 mb-6 line-clamp-3 flex-grow leading-relaxed">${b.ringkasan}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        };
+
+        window.openDetailBerita = function(id) {
+            const item = window.dbData.berita.find(b => b.id === id);
+            if(!item) return;
+            document.getElementById('detail-judul').textContent = item.judul;
+            document.getElementById('detail-tgl').textContent = item.tgl;
+            document.getElementById('detail-kategori').textContent = item.kategori;
+            document.getElementById('detail-img').src = item.foto || window.FALLBACK_IMG;
+            document.getElementById('detail-konten').innerHTML = item.isi;
+            window.navigate('berita-detail');
+        };
+
+        window.renderGaleriPublik = function() {
+            const container = document.getElementById('galeri-grid');
+            if(window.dbData.galeri.length === 0) { container.innerHTML = '<div class="col-span-full text-center py-10 text-slate-500">Belum ada foto di galeri.</div>'; return; }
+            let html = '';
+            window.dbData.galeri.forEach(g => {
+                html += `
+                    <div onclick="window.openLightbox('${g.foto || window.FALLBACK_IMG}', '${g.judul}')" class="rounded-xl overflow-hidden shadow-sm relative group cursor-pointer bg-slate-200">
+                        <img src="${g.foto || window.FALLBACK_IMG}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+                            <h4 class="text-white font-bold text-sm transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">${g.judul}</h4>
+                            <p class="text-white/70 text-xs mt-1 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-75">${g.tgl}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        };
+
+        // =========================================================
+        // === MODALS UI ===
+        // =========================================================
+        window.openProfileModal = function(id) {
+            const guru = window.dbData.guru.find(g => g.id === id);
+            if(!guru) return;
+            document.getElementById('pm-img').src = guru.foto || window.FALLBACK_IMG;
+            document.getElementById('pm-nama').textContent = guru.nama;
+            document.getElementById('pm-jabatan').textContent = guru.jabatan;
+            document.getElementById('pm-nip').textContent = guru.nip || '-';
+            document.getElementById('pm-mapel').textContent = guru.mapel || '-';
+            
+            const modal = document.getElementById('profile-modal');
+            modal.classList.remove('hidden'); void modal.offsetWidth; modal.classList.remove('opacity-0'); document.getElementById('profile-box').classList.remove('scale-95');
+        };
+        window.closeProfileModal = function() {
+            const modal = document.getElementById('profile-modal');
+            modal.classList.add('opacity-0'); document.getElementById('profile-box').classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        };
+
+        window.openLightbox = function(src, caption) {
+            document.getElementById('lightbox-img').src = src; document.getElementById('lightbox-caption').textContent = caption;
+            const lb = document.getElementById('lightbox');
+            lb.classList.remove('hidden'); void lb.offsetWidth; lb.classList.remove('opacity-0');
+        };
+        window.closeLightbox = function() {
+            const lb = document.getElementById('lightbox'); lb.classList.add('opacity-0'); setTimeout(() => lb.classList.add('hidden'), 300);
+        };
+
+        window.setRating = function(val) {
+            document.getElementById('review-rating-val').value = val;
+            const stars = document.querySelectorAll('#interactive-stars i');
+            stars.forEach(s => {
+                if(parseInt(s.dataset.val) <= val) { s.classList.remove('text-slate-200'); s.classList.add('text-yellow-400', 'scale-110'); } 
+                else { s.classList.remove('text-yellow-400', 'scale-110'); s.classList.add('text-slate-200'); }
+            });
+            setTimeout(() => stars.forEach(s => s.classList.remove('scale-110')), 200);
+        };
+        window.openReviewModal = function() {
+            document.getElementById('review-nama').value = ''; document.getElementById('review-peran').value = ''; document.getElementById('review-teks').value = ''; window.setRating(0);
+            const modal = document.getElementById('review-modal');
+            modal.classList.remove('hidden'); void modal.offsetWidth; modal.classList.remove('opacity-0'); document.getElementById('review-box').classList.remove('scale-95');
+        };
+        window.closeReviewModal = function() {
+            const modal = document.getElementById('review-modal');
+            modal.classList.add('opacity-0'); document.getElementById('review-box').classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        };
+
+        // --- TAMBAH DATA (WRITE KE FIRESTORE CLOUD) ---
+        window.submitReview = async function() {
+            const btn = document.getElementById('btn-submit-review');
+            const nama = document.getElementById('review-nama').value.trim();
+            const peran = document.getElementById('review-peran').value.trim() || 'Pengunjung';
+            const teks = document.getElementById('review-teks').value.trim();
+            const rating = parseInt(document.getElementById('review-rating-val').value);
+
+            if(!nama) return window.showCustomMessage('Mohon isi nama lengkap Anda!', 'error');
+            if(!teks) return window.showCustomMessage('Mohon isi pesan ulasan Anda!', 'error');
+            if(rating === 0) return window.showCustomMessage('Mohon berikan penilaian bintang!', 'error');
+
+            try {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...'; btn.disabled = true;
+                const newRev = { id: Date.now(), nama, peran, teks, bintang: rating };
+                
+                // Set data ke Firestore
+                await setDoc(getDocRef('ulasan', String(newRev.id)), newRev);
+                
+                window.closeReviewModal();
+                window.showCustomMessage('Terima kasih! Ulasan Anda telah diterima di Cloud.');
+            } catch(e) {
+                console.error("Gagal mengirim ulasan:", e);
+                window.showCustomMessage('Koneksi terputus. Gagal mengirim.', 'error');
+            } finally {
+                btn.innerHTML = 'Kirim Ulasan'; btn.disabled = false;
+            }
+        };
+
+        // =========================================================
+        // === DASBOR SPESIFIK & CRUD FIRESTORE ===
+        // =========================================================
+        window.updateDashStats = function() {
+            document.getElementById('stat-guru').textContent = window.dbData.guru.length;
+            document.getElementById('stat-berita').textContent = window.dbData.berita.length;
+            document.getElementById('stat-galeri').textContent = window.dbData.galeri.length;
+            document.getElementById('stat-ulasan').textContent = window.dbData.ulasan.length;
+        };
+
+        window.loadDashProfil = function() {
+            document.getElementById('input-profil-hero').value = window.dbData.profil.hero_img || '';
+            document.getElementById('preview-profil-hero').src = window.dbData.profil.hero_img || window.FALLBACK_IMG;
+            document.getElementById('input-sosmed-fb').value = window.dbData.profil.sosmed?.fb || '';
+            document.getElementById('input-sosmed-ig').value = window.dbData.profil.sosmed?.ig || '';
+            document.getElementById('input-sosmed-yt').value = window.dbData.profil.sosmed?.yt || '';
+            document.querySelectorAll('input[name="hero_grad"]').forEach(r => { if(r.value === window.dbData.profil.gradient) r.checked = true; });
+        };
+        
+        window.updateHeroPreview = function(val) { document.getElementById('preview-profil-hero').src = val || window.FALLBACK_IMG; };
+
+        window.saveProfil = async function() {
+            const btn = document.getElementById('btn-save-profil');
+            try {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...'; btn.disabled = true;
+                
+                window.dbData.profil.hero_img = document.getElementById('input-profil-hero').value.trim();
+                window.dbData.profil.sosmed = {
+                    fb: document.getElementById('input-sosmed-fb').value.trim(),
+                    ig: document.getElementById('input-sosmed-ig').value.trim(),
+                    yt: document.getElementById('input-sosmed-yt').value.trim()
+                };
+                const selectedGrad = document.querySelector('input[name="hero_grad"]:checked');
+                if(selectedGrad) window.dbData.profil.gradient = selectedGrad.value;
+                
+                // Tulis perubahan profil ke Firestore
+                await setDoc(getDocRef('profil', 'main'), window.dbData.profil);
+                
+                window.showCustomMessage('Pengaturan Profil berhasil disimpan ke Cloud.');
+            } catch(e) {
+                console.error("Gagal menyimpan profil:", e);
+                window.showCustomMessage('Gagal menyimpan profil ke Cloud!', 'error');
+            } finally {
+                btn.innerHTML = 'Simpan Perubahan Cloud'; btn.disabled = false;
+            }
+        };
+
+        // --- Render Tabel di Dasbor ---
+        const getTableHTML = (title, btnText, colsHtml, rowsHtml) => `
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                <h2 class="text-2xl font-bold text-slate-800">${title}</h2>
+                ${btnText ? `<button onclick="window.openFormModal('${title}')" class="px-5 py-2.5 bg-secondary hover:bg-blue-800 text-white rounded-lg text-sm font-bold shadow-md transition-colors w-full sm:w-auto cursor-pointer"><i class="fa-solid fa-plus mr-2"></i>${btnText}</button>` : ''}
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
+                <table class="w-full text-left text-sm whitespace-nowrap">
+                    <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold uppercase text-xs tracking-wider"><tr>${colsHtml}</tr></thead>
+                    <tbody class="divide-y divide-slate-100 text-slate-700">${rowsHtml || '<tr><td colspan="100%" class="px-6 py-8 text-center text-slate-500">Belum ada data.</td></tr>'}</tbody>
+                </table>
+            </div>`;
+
+        window.renderTableDashGuru = function() {
+            const cols = `<th class="px-6 py-4 w-16">Foto</th><th class="px-6 py-4">Nama & NIP</th><th class="px-6 py-4">Jabatan & Posisi</th><th class="px-6 py-4 text-right">Aksi</th>`;
+            let rows = window.dbData.guru.map(g => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4"><img src="${g.foto || window.FALLBACK_IMG}" class="w-12 h-12 rounded-full object-cover border border-slate-200" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;"></td>
+                    <td class="px-6 py-4"><div class="font-bold text-slate-800">${g.nama}</div><div class="text-[11px] text-slate-500 mt-0.5">${g.nip || '-'}</div></td>
+                    <td class="px-6 py-4"><div class="font-medium text-slate-700">${g.jabatan}</div><div class="text-[10px] text-primary font-bold uppercase tracking-wider mt-0.5 bg-red-50 inline-block px-2 py-0.5 rounded">${g.posisi}</div></td>
+                    <td class="px-6 py-4 text-right"><button onclick="window.directDeleteData('guru', ${g.id})" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
+                </tr>`).join('');
+            document.getElementById('dash-guru').innerHTML = getTableHTML('Manajemen Guru & Tendik', 'Tambah Staf', cols, rows);
+        };
+
+        window.renderTableDashBerita = function() {
+            const cols = `<th class="px-6 py-4">Info Artikel</th><th class="px-6 py-4 text-right">Aksi</th>`;
+            let rows = window.dbData.berita.map(b => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4 whitespace-normal min-w-[300px]">
+                        <div class="flex gap-4 items-start">
+                            <img src="${b.foto || window.FALLBACK_IMG}" class="w-20 h-14 rounded object-cover border border-slate-200 shrink-0" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
+                            <div><div class="font-bold text-slate-800 mb-1 line-clamp-1">${b.judul}</div><div class="text-[11px] text-slate-500 flex items-center gap-2"><span><i class="fa-regular fa-calendar mr-1"></i>${b.tgl}</span><span class="w-1 h-1 bg-slate-300 rounded-full"></span><span class="text-primary font-semibold">${b.kategori}</span></div></div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-right align-middle"><button onclick="window.directDeleteData('berita', ${b.id})" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
+                </tr>`).join('');
+            document.getElementById('dash-berita').innerHTML = getTableHTML('Kelola Berita & Artikel', 'Tulis Berita', cols, rows);
+        };
+
+        window.renderTableDashGaleri = function() {
+            const cols = `<th class="px-6 py-4 w-24">Foto</th><th class="px-6 py-4">Judul & Tanggal</th><th class="px-6 py-4 text-right">Aksi</th>`;
+            let rows = window.dbData.galeri.map(g => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-4"><img src="${g.foto || window.FALLBACK_IMG}" class="w-20 h-14 rounded object-cover border border-slate-200 shadow-sm" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;"></td>
+                    <td class="px-6 py-4"><div class="font-bold text-slate-800 text-[15px]">${g.judul}</div><div class="text-xs text-slate-500 mt-1"><i class="fa-regular fa-clock mr-1"></i>${g.tgl}</div></td>
+                    <td class="px-6 py-4 text-right align-middle"><button onclick="window.directDeleteData('galeri', ${g.id})" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
+                </tr>`).join('');
+            document.getElementById('dash-galeri').innerHTML = getTableHTML('Kelola Galeri Foto', 'Upload Foto', cols, rows);
+        };
+
+        window.renderTableDashUlasan = function() {
+            const cols = `<th class="px-6 py-4 w-1/4">Pengirim</th><th class="px-6 py-4">Ulasan & Rating</th><th class="px-6 py-4 text-right">Aksi</th>`;
+            let rows = window.dbData.ulasan.map(u => `
+                <tr class="hover:bg-slate-50 transition-colors whitespace-normal">
+                    <td class="px-6 py-4 align-top"><div class="font-bold text-slate-800">${u.nama}</div><div class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mt-1 bg-slate-100 inline-block px-2 py-0.5 rounded">${u.peran}</div></td>
+                    <td class="px-6 py-4 align-top"><div class="text-yellow-400 text-xs mb-2 tracking-widest">${'<i class="fa-solid fa-star"></i>'.repeat(u.bintang)}</div><div class="text-sm text-slate-600 italic leading-relaxed">"${u.teks}"</div></td>
+                    <td class="px-6 py-4 text-right align-top whitespace-nowrap"><button onclick="window.directDeleteData('ulasan', ${u.id})" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
+                </tr>`).join('');
+            document.getElementById('dash-ulasan').innerHTML = getTableHTML('Pantau Ulasan Masuk', null, cols, rows);
+        };
+
+        // === KONTROL FORM CRUD OPERATOR ===
+        window.openFormModal = function(typeTitle) {
+            document.getElementById('crud-title').textContent = typeTitle;
+            const body = document.getElementById('crud-form-body');
+            
+            const inpt = (id, label, placeholder) => `<div class="mb-4"><label class="block text-sm font-semibold text-slate-700 mb-1.5">${label}</label><input type="text" id="${id}" class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-primary outline-none shadow-sm" placeholder="${placeholder}"></div>`;
+            const txt = (id, label, p) => `<div class="mb-4"><label class="block text-sm font-semibold text-slate-700 mb-1.5">${label}</label><textarea id="${id}" rows="4" class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-primary outline-none shadow-sm" placeholder="${p}"></textarea></div>`;
+            const imgInput = (id) => `
+                <div class="mb-5 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <label class="block text-sm font-bold text-slate-700 mb-2"><i class="fa-solid fa-link text-slate-400 mr-1"></i> Tautan URL Gambar</label>
+                    <input type="text" id="${id}" class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-primary outline-none mb-3" placeholder="Masukkan link gambar (https://...)" oninput="document.getElementById('${id}-preview').src = this.value || window.FALLBACK_IMG">
+                    <div class="h-40 bg-white rounded-lg border border-slate-200 overflow-hidden relative shadow-inner">
+                        <img id="${id}-preview" src="${window.FALLBACK_IMG}" class="w-full h-full object-contain p-2" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
+                        <div class="absolute top-2 left-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded font-bold uppercase tracking-wider">Pratinjau</div>
+                    </div>
+                </div>`;
+
+            if(typeTitle.includes('Guru')) {
+                currentFormType = 'guru';
+                body.innerHTML = imgInput('f-foto') + inpt('f-nama', 'Nama Lengkap (beserta gelar)', 'Cth: Budi Santoso, S.Pd') + inpt('f-nip', 'NIP / NUPTK', 'Cth: 19800512 200501 1 002') + inpt('f-jab', 'Jabatan', 'Cth: Wali Kelas 1') + inpt('f-mapel', 'Tugas / Mata Pelajaran', 'Cth: Guru Kelas') + `<div class="mb-4"><label class="block text-sm font-semibold text-slate-700 mb-1.5">Posisi Struktur Organisasi</label><select id="f-pos" class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-primary outline-none shadow-sm bg-white cursor-pointer"><option value="guru">Tenaga Pendidik (Guru)</option><option value="wakil">Wakil Kepala Sekolah</option><option value="kepsek">Kepala Sekolah</option><option value="tendik">Tenaga Kependidikan (Staf)</option></select></div>`;
+            } else if(typeTitle.includes('Berita')) {
+                currentFormType = 'berita';
+                body.innerHTML = imgInput('f-foto') + inpt('f-jud', 'Judul Berita', 'Masukkan judul...') + inpt('f-kat', 'Kategori', 'Cth: Prestasi') + txt('f-ring', 'Ringkasan Singkat', 'Tulis 1-2 kalimat...') + txt('f-isi', 'Isi Konten Lengkap', '<p>Paragraf pertama...</p>');
+            } else if(typeTitle.includes('Galeri')) {
+                currentFormType = 'galeri';
+                body.innerHTML = imgInput('f-foto') + inpt('f-jud', 'Deskripsi / Judul Foto', 'Cth: Kegiatan Lomba');
+            }
+
+            const modal = document.getElementById('crud-modal');
+            modal.classList.remove('hidden'); void modal.offsetWidth; modal.classList.remove('opacity-0'); document.getElementById('crud-box').classList.remove('scale-95');
+        };
+
+        window.closeFormModal = function() {
+            const modal = document.getElementById('crud-modal');
+            modal.classList.add('opacity-0'); document.getElementById('crud-box').classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        };
+
+        // --- Simpan ke Firestore ---
+        window.processSaveData = async function() {
+            const btn = document.getElementById('btn-save-data');
+            const fotoUrl = document.getElementById('f-foto').value.trim();
+            const today = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+            let newItem = {};
+
+            if(currentFormType === 'guru') {
+                const nama = document.getElementById('f-nama').value.trim();
+                if(!nama) return window.showCustomMessage('Nama lengkap wajib diisi!', 'error');
+                newItem = { id: Date.now(), foto: fotoUrl, nama: nama, nip: document.getElementById('f-nip').value.trim() || '-', jabatan: document.getElementById('f-jab').value.trim() || 'Staf', mapel: document.getElementById('f-mapel').value.trim() || '-', posisi: document.getElementById('f-pos').value };
+            } else if(currentFormType === 'berita') {
+                const judul = document.getElementById('f-jud').value.trim();
+                if(!judul) return window.showCustomMessage('Judul berita wajib diisi!', 'error');
+                newItem = { id: Date.now(), foto: fotoUrl, tgl: today, judul: judul, kategori: document.getElementById('f-kat').value.trim() || 'Umum', ringkasan: document.getElementById('f-ring').value.trim() || '-', isi: document.getElementById('f-isi').value.trim() || '-' };
+            } else if(currentFormType === 'galeri') {
+                const judul = document.getElementById('f-jud').value.trim();
+                newItem = { id: Date.now(), foto: fotoUrl, tgl: today, judul: judul || 'Foto Kegiatan' };
+            }
+
+            try {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...'; btn.disabled = true;
+                // Tambahkan dokumen ke Cloud dengan ID berupa waktu penambahan (Date.now())
+                await setDoc(getDocRef(currentFormType, String(newItem.id)), newItem);
+                window.closeFormModal(); 
+                window.showCustomMessage('Data berhasil disimpan ke Cloud!');
+            } catch(e) {
+                console.error("Gagal simpan data", e);
+                window.showCustomMessage('Gagal menyambung ke Cloud.', 'error');
+            } finally {
+                btn.innerHTML = 'Simpan Data'; btn.disabled = false;
+            }
+        };
+
+        // --- Hapus dari Firestore ---
+        window.directDeleteData = function(type, id) {
+            pendingDelete = { type, id };
+            const modal = document.getElementById('confirm-modal');
+            modal.classList.remove('hidden'); void modal.offsetWidth; modal.classList.remove('opacity-0'); document.getElementById('confirm-box').classList.remove('scale-95');
+        };
+
+        window.closeConfirmModal = function() {
+            const modal = document.getElementById('confirm-modal');
+            modal.classList.add('opacity-0'); document.getElementById('confirm-box').classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+            pendingDelete = null;
+        };
+
+        window.executeDelete = async function() {
+            if(!pendingDelete) return;
+            const btn = document.getElementById('btn-execute-delete');
+            const { type, id } = pendingDelete;
+            
+            try {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghapus...'; btn.disabled = true;
+                await deleteDoc(getDocRef(type, String(id))); // Hapus dokumen dari Firestore berdasarkan ID-nya
+                window.showCustomMessage('Data berhasil dihapus dari Cloud.', 'success');
+                window.closeConfirmModal();
+            } catch(e) {
+                console.error("Gagal menghapus data", e);
+                window.showCustomMessage('Gagal menghapus data.', 'error');
+            } finally {
+                btn.innerHTML = 'Ya, Hapus'; btn.disabled = false;
+            }
+        };
+
+        // === START APLIKASI KETIKA SELURUH LAYAR DIMUAT ===
+        window.addEventListener('load', () => {
+            window.renderBerandaSetup();
+            window.navigate('home');
+            initFirebaseRealtime(); // Panggil fungsi penghubung Real-time ke Cloud Firebase Anda
+        });
+    </script>
+</body>
+</html>
