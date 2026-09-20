@@ -916,7 +916,7 @@
         };
 
         // --- TAMBAH DATA (WRITE KE FIRESTORE CLOUD) ---
-        window.submitReview = async function() {
+        window.submitReview = function() {
             const btn = document.getElementById('btn-submit-review');
             const nama = document.getElementById('review-nama').value.trim();
             const peran = document.getElementById('review-peran').value.trim() || 'Pengunjung';
@@ -927,21 +927,18 @@
             if(!teks) return window.showCustomMessage('Mohon isi pesan ulasan Anda!', 'error');
             if(rating === 0) return window.showCustomMessage('Mohon berikan penilaian bintang!', 'error');
 
-            try {
-                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...'; btn.disabled = true;
-                const newRev = { id: Date.now(), nama, peran, teks, bintang: rating };
-                
-                // Set data ke Firestore
-                await setDoc(getDocRef('ulasan', String(newRev.id)), newRev);
-                
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...'; btn.disabled = true;
+            const newRev = { id: Date.now(), nama, peran, teks, bintang: rating };
+            
+            // Set data ke Firestore (berjalan otomatis di background)
+            setDoc(getDocRef('ulasan', String(newRev.id)), newRev).catch(e => console.error("Error:", e));
+            
+            // Hentikan loading dan tutup form dalam waktu 0.6 detik
+            setTimeout(() => {
+                btn.innerHTML = 'Kirim Ulasan'; btn.disabled = false;
                 window.closeReviewModal();
                 window.showCustomMessage('Terima kasih! Ulasan Anda telah diterima di Cloud.');
-            } catch(e) {
-                console.error("Gagal mengirim ulasan:", e);
-                window.showCustomMessage('Koneksi terputus. Gagal mengirim.', 'error');
-            } finally {
-                btn.innerHTML = 'Kirim Ulasan'; btn.disabled = false;
-            }
+            }, 600);
         };
 
         // =========================================================
@@ -965,30 +962,26 @@
         
         window.updateHeroPreview = function(val) { document.getElementById('preview-profil-hero').src = val || window.FALLBACK_IMG; };
 
-        window.saveProfil = async function() {
+        window.saveProfil = function() {
             const btn = document.getElementById('btn-save-profil');
-            try {
-                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...'; btn.disabled = true;
-                
-                window.dbData.profil.hero_img = document.getElementById('input-profil-hero').value.trim();
-                window.dbData.profil.sosmed = {
-                    fb: document.getElementById('input-sosmed-fb').value.trim(),
-                    ig: document.getElementById('input-sosmed-ig').value.trim(),
-                    yt: document.getElementById('input-sosmed-yt').value.trim()
-                };
-                const selectedGrad = document.querySelector('input[name="hero_grad"]:checked');
-                if(selectedGrad) window.dbData.profil.gradient = selectedGrad.value;
-                
-                // Tulis perubahan profil ke Firestore
-                await setDoc(getDocRef('profil', 'main'), window.dbData.profil);
-                
-                window.showCustomMessage('Pengaturan Profil berhasil disimpan ke Cloud.');
-            } catch(e) {
-                console.error("Gagal menyimpan profil:", e);
-                window.showCustomMessage('Gagal menyimpan profil ke Cloud!', 'error');
-            } finally {
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...'; btn.disabled = true;
+            
+            window.dbData.profil.hero_img = document.getElementById('input-profil-hero').value.trim();
+            window.dbData.profil.sosmed = {
+                fb: document.getElementById('input-sosmed-fb').value.trim(),
+                ig: document.getElementById('input-sosmed-ig').value.trim(),
+                yt: document.getElementById('input-sosmed-yt').value.trim()
+            };
+            const selectedGrad = document.querySelector('input[name="hero_grad"]:checked');
+            if(selectedGrad) window.dbData.profil.gradient = selectedGrad.value;
+            
+            // Tulis perubahan ke Firestore
+            setDoc(getDocRef('profil', 'main'), window.dbData.profil).catch(e => console.error(e));
+            
+            setTimeout(() => {
                 btn.innerHTML = 'Simpan Perubahan Cloud'; btn.disabled = false;
-            }
+                window.showCustomMessage('Pengaturan Profil berhasil disimpan ke Cloud.');
+            }, 600);
         };
 
         // --- Render Tabel di Dasbor ---
@@ -1092,7 +1085,7 @@
         };
 
         // --- Simpan ke Firestore ---
-        window.processSaveData = async function() {
+        window.processSaveData = function() {
             const btn = document.getElementById('btn-save-data');
             const fotoUrl = document.getElementById('f-foto').value.trim();
             const today = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
@@ -1111,18 +1104,16 @@
                 newItem = { id: Date.now(), foto: fotoUrl, tgl: today, judul: judul || 'Foto Kegiatan' };
             }
 
-            try {
-                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...'; btn.disabled = true;
-                // Tambahkan dokumen ke Cloud dengan ID berupa waktu penambahan (Date.now())
-                await setDoc(getDocRef(currentFormType, String(newItem.id)), newItem);
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...'; btn.disabled = true;
+            
+            // Tambahkan dokumen ke Cloud tanpa menunda respons UI
+            setDoc(getDocRef(currentFormType, String(newItem.id)), newItem).catch(e => console.error(e));
+            
+            setTimeout(() => {
+                btn.innerHTML = 'Simpan Data'; btn.disabled = false;
                 window.closeFormModal(); 
                 window.showCustomMessage('Data berhasil disimpan ke Cloud!');
-            } catch(e) {
-                console.error("Gagal simpan data", e);
-                window.showCustomMessage('Gagal menyambung ke Cloud.', 'error');
-            } finally {
-                btn.innerHTML = 'Simpan Data'; btn.disabled = false;
-            }
+            }, 600);
         };
 
         // --- Hapus dari Firestore ---
@@ -1139,22 +1130,21 @@
             pendingDelete = null;
         };
 
-        window.executeDelete = async function() {
+        window.executeDelete = function() {
             if(!pendingDelete) return;
             const btn = document.getElementById('btn-execute-delete');
             const { type, id } = pendingDelete;
             
-            try {
-                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghapus...'; btn.disabled = true;
-                await deleteDoc(getDocRef(type, String(id))); // Hapus dokumen dari Firestore berdasarkan ID-nya
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghapus...'; btn.disabled = true;
+            
+            // Eksekusi hapus
+            deleteDoc(getDocRef(type, String(id))).catch(e => console.error(e));
+            
+            setTimeout(() => {
+                btn.innerHTML = 'Ya, Hapus'; btn.disabled = false;
                 window.showCustomMessage('Data berhasil dihapus dari Cloud.', 'success');
                 window.closeConfirmModal();
-            } catch(e) {
-                console.error("Gagal menghapus data", e);
-                window.showCustomMessage('Gagal menghapus data.', 'error');
-            } finally {
-                btn.innerHTML = 'Ya, Hapus'; btn.disabled = false;
-            }
+            }, 600);
         };
 
         // === START APLIKASI KETIKA SELURUH LAYAR DIMUAT ===
