@@ -55,7 +55,7 @@
 </head>
 <body class="text-slate-700 antialiased flex flex-col min-h-screen">
 
-    <!-- -->
+    <!-- NAVBAR PUBLIK -->
     <nav id="public-navbar" class="fixed w-full z-50 transition-all duration-300 bg-white shadow-md border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
@@ -123,19 +123,19 @@
         </div>
     </div>
 
-    <!-- -->
+    <!-- KONTEN UTAMA PUBLIK -->
     <main class="flex-grow pt-20 flex flex-col relative" id="main-content">
 
         <section id="home" class="page-section active flex-grow">
             <div class="relative min-h-[85vh] w-full flex items-center overflow-hidden bg-slate-900">
                 <div class="absolute inset-0 z-0">
                     <img id="hero-img-bg" src="" alt="Gedung Sekolah" class="w-full h-full object-cover transition-opacity duration-700 opacity-60 cursor-pointer hover:opacity-80" onclick="window.openLightbox(this.src, 'Gedung SD 93 Soreang')" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
-                    <div id="hero-gradient-overlay" class="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/70 to-transparent transition-all duration-500 pointer-events-none"></div>
+                    <div id="hero-gradient-overlay" class="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/70 to-transparent transition-all duration-500"></div>
                 </div>
                 
-                <div class="relative z-10 w-full px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto py-12 pointer-events-none">
+                <div class="relative z-10 w-full px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto py-12">
                     <div class="flex flex-col md:flex-row gap-12 items-center justify-between w-full">
-                        <div class="max-w-2xl text-white pointer-events-auto">
+                        <div class="max-w-2xl text-white">
                             <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white font-bold text-xs rounded-full mb-6 border border-white/30 uppercase tracking-widest shadow-sm">
                                 Selamat Datang Di
                             </div>
@@ -147,7 +147,7 @@
                             </p>
                         </div>
                         
-                        <div class="w-full md:w-80 bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 overflow-hidden shrink-0 transform hover:-translate-y-1 transition-transform pointer-events-auto">
+                        <div class="w-full md:w-80 bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 overflow-hidden shrink-0 transform hover:-translate-y-1 transition-transform">
                             <div class="flex flex-col">
                                 <button onclick="window.navigate('guru')" class="w-full text-left px-6 py-5 border-b border-white/10 text-white font-semibold hover:bg-white/20 transition-all flex justify-between items-center group text-lg cursor-pointer">
                                     Profil Guru <i class="fa-solid fa-chevron-right text-sm opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all"></i>
@@ -219,7 +219,7 @@
                     <i class="fa-regular fa-calendar"></i> <span id="detail-tgl">Tanggal</span>
                 </div>
                 <h1 id="detail-judul" class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-8 leading-tight tracking-tight">Judul Berita</h1>
-                <div class="w-full rounded-2xl overflow-hidden mb-10 shadow-lg border border-slate-100 cursor-pointer hover:shadow-xl transition-all group" onclick="window.openLightbox(document.getElementById('detail-img').src, document.getElementById('detail-judul').textContent)">
+                <div class="w-full rounded-2xl overflow-hidden mb-10 shadow-lg border border-slate-100 cursor-pointer group" onclick="window.openLightbox(document.getElementById('detail-img').src, document.getElementById('detail-judul').textContent)">
                     <img id="detail-img" src="" alt="Foto Cover" class="w-full h-auto max-h-[500px] object-cover group-hover:scale-[1.02] transition-transform duration-500" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
                     <div class="bg-slate-800 text-white text-xs py-2 text-center opacity-0 group-hover:opacity-100 transition-opacity"><i class="fa-solid fa-magnifying-glass-plus"></i> Klik foto untuk memperbesar</div>
                 </div>
@@ -239,7 +239,6 @@
 
     </main>
 
-    <!-- -->
     <footer class="bg-secondary text-white pt-16 pb-8 border-t-4 border-primary mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
@@ -274,7 +273,9 @@
         </div>
     </footer>
 
-    <!-- -->
+    <!-- ========================================================================= -->
+    <!-- PANEL DASBOR OPERATOR -->
+    <!-- ========================================================================= -->
     <div id="operator-dashboard" class="fixed inset-0 bg-slate-50 z-[999] flex-col md:flex-row font-sans w-full h-full md:overflow-hidden overflow-y-auto" style="display: none;">
         
         <aside class="w-full md:w-64 bg-slate-900 text-slate-300 flex flex-col shrink-0 md:h-full z-20 shadow-2xl relative">
@@ -420,8 +421,7 @@
         </main>
     </div>
 
-    <!-- -->
-    <!-- Modal Login -->
+    <!-- MODAL AREA -->
     <div id="login-modal" class="fixed inset-0 z-[110] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-transform scale-95" id="login-box">
             <div class="p-8 text-center border-b border-slate-100 relative">
@@ -441,7 +441,6 @@
         </div>
     </div>
 
-    <!-- Modal Form CRUD (Tambah Data Dashboard) -->
     <div id="crud-modal" class="fixed inset-0 z-[1000] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-transform scale-95 flex flex-col max-h-[90vh]" id="crud-box">
             <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50 shrink-0">
@@ -456,7 +455,6 @@
         </div>
     </div>
 
-    <!-- Modal Konfirmasi Hapus -->
     <div id="confirm-modal" class="fixed inset-0 z-[1000] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden transform transition-transform scale-95" id="confirm-box">
             <div class="p-6 text-center">
@@ -471,7 +469,6 @@
         </div>
     </div>
 
-    <!-- Modal Tulis Ulasan (Publik) -->
     <div id="review-modal" class="fixed inset-0 z-[130] bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity" onclick="if(event.target === this) window.closeReviewModal()">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-transform scale-95" id="review-box">
             <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
@@ -509,7 +506,6 @@
         </div>
     </div>
 
-    <!-- Modal Profil Guru -->
     <div id="profile-modal" class="fixed inset-0 z-[140] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4 opacity-0 transition-opacity" onclick="if(event.target === this) window.closeProfileModal()">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-transform scale-95 relative" id="profile-box">
             <button onclick="window.closeProfileModal()" class="absolute top-4 right-4 bg-white/50 backdrop-blur rounded-full w-8 h-8 flex items-center justify-center text-slate-700 hover:bg-white z-10 shadow-sm cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
@@ -517,11 +513,10 @@
                 <div class="absolute inset-0 bg-gradient-to-r from-secondary to-blue-700"></div>
             </div>
             <div class="px-8 pb-8 relative -mt-16 text-center">
-                <!-- KLIK FOTO GURU UNTUK MEMPERBESAR -->
                 <div class="relative inline-block group cursor-pointer" onclick="window.openLightbox(document.getElementById('pm-img').src, document.getElementById('pm-nama').textContent)">
                     <img id="pm-img" src="" class="w-32 h-32 rounded-full border-4 border-white object-cover mx-auto shadow-md bg-white mb-4 group-hover:scale-105 transition-transform duration-300" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
                     <div class="absolute inset-0 bg-black/40 rounded-full mb-4 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <i class="fa-solid fa-magnifying-glass-plus text-white text-2xl"></i>
+                        <i class="fa-solid fa-magnifying-glass-plus text-white text-xl"></i>
                     </div>
                 </div>
                 <h3 id="pm-nama" class="text-2xl font-bold text-slate-800">Nama</h3>
@@ -540,25 +535,20 @@
         </div>
     </div>
 
-    <!-- Modal Lightbox (Untuk Memperbesar Semua Gambar) -->
     <div id="lightbox" class="fixed inset-0 z-[150] bg-black/95 hidden flex items-center justify-center p-4 opacity-0 transition-opacity" onclick="window.closeLightbox()">
         <button class="absolute top-6 right-6 text-white/50 hover:text-white text-3xl cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
         <img id="lightbox-img" src="" class="max-w-full max-h-[90vh] object-contain shadow-2xl rounded-sm" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;">
         <p id="lightbox-caption" class="absolute bottom-6 left-0 w-full text-center text-white/80 font-medium bg-black/40 py-2 backdrop-blur-sm"></p>
     </div>
 
-    <!-- Toast Popup Notifications -->
     <div id="toast-container" class="fixed bottom-6 right-6 z-[2000] flex flex-col gap-3 pointer-events-none"></div>
 
-    <!-- -->
     <!-- PENGGUNAAN MODULE JS AGAR SESUAI STANDAR SDK FIREBASE MODERN (V11) -->
     <script type="module">
-        // Import Modul Firebase Firestore (Cloud Database) & Auth Terbaru
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, onSnapshot, collection, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Konfigurasi Milik Anda yang Benar
         const firebaseConfig = {
             apiKey: "AIzaSyCRG-0JNhHcG0UxHg_eiNHg1A4N56a5CQw",
             authDomain: "uptd-93-soreang.firebaseapp.com",
@@ -569,18 +559,16 @@
             measurementId: "G-NKKH23W70B"
         };
 
-        // Inisialisasi Firebase App
         const app = initializeApp(firebaseConfig);
         const firestoreDb = getFirestore(app);
         const auth = getAuth(app);
 
-        // Path Struktur Data Firebase yang Sederhana & Langsung
+        // Jalur Root Koleksi Standar agar tersinkron sempurna antar perangkat
         const getColRef = (colName) => collection(firestoreDb, colName);
         const getDocRef = (colName, docId) => doc(firestoreDb, colName, docId);
 
         window.FALLBACK_IMG = "https://placehold.co/600x400/f1f5f9/94a3b8?text=Tidak+Ada+Foto";
 
-        // Database Sementara di Browser sebelum memuat dari Cloud
         window.dbData = {
             profil: { hero_img: "", gradient: "from-secondary/90 via-secondary/70 to-transparent", sosmed: { fb: "", ig: "", yt: "" } },
             guru: [], berita: [], galeri: [], ulasan: []
@@ -591,7 +579,6 @@
         let pendingDelete = null;
         let currentFormType = '';
 
-        // FUNGSI UTILITAS & TOAST
         window.showCustomMessage = function(msg, type = 'success') {
             const container = document.getElementById('toast-container');
             if(!container) return;
@@ -604,24 +591,18 @@
             setTimeout(() => { toast.classList.add('translate-x-full'); setTimeout(() => toast.remove(), 300); }, 3000);
         };
 
-        // =========================================================
-        // === SINKRONISASI REAL-TIME CLOUD (FIRESTORE) ===
-        // =========================================================
         async function initFirebaseRealtime() {
             try {
-                // Autentikasi Anonim Opsional (Jika gagal biarkan saja, karena DB Rules sudah Public)
-                try { await signInAnonymously(auth); } catch (authError) { console.warn("Peringatan Auth: Lanjut sebagai Public."); }
+                try { await signInAnonymously(auth); } catch (e) { console.warn("Auth mode: Tamu/Public"); }
                 
-                // Jika proses berlanjut, ganti indikator UI di pojok kiri atas
                 const statIcon = document.getElementById('status-koneksi');
                 if(statIcon) { statIcon.classList.remove('db-connecting'); statIcon.classList.add('db-connected'); statIcon.title = 'Terhubung ke Database Cloud'; }
 
-                // 1. Memantau Pengaturan Profil secara langsung
+                // 1. Profil
                 onSnapshot(getDocRef('profil', 'main'), (snap) => {
                     if (snap.exists()) {
                         window.dbData.profil = snap.data();
                     } else {
-                        // Jika Profil masih kosong (baru pertama kali buka App), buat data default
                         setDoc(getDocRef('profil', 'main'), {
                             hero_img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
                             gradient: "from-secondary/90 via-secondary/70 to-transparent",
@@ -630,26 +611,23 @@
                     }
                     window.renderBerandaSetup();
                     if(document.getElementById('dash-profil')?.classList.contains('block')) window.loadDashProfil();
-                }, (err) => console.error("Sinkronisasi Profil Gagal:", err));
+                });
 
-                // 2. Fungsi Pantau Koleksi (Guru, Berita, Galeri, Ulasan)
+                // 2. Koleksi (Guru, Berita, Galeri, Ulasan)
                 const listenCollection = (colName) => {
                     onSnapshot(getColRef(colName), (snap) => {
                         let items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                        // Mengurutkan di dalam memori berdasarkan waktu (ID/CreatedAt terbaru di atas)
                         items.sort((a,b) => b.id - a.id); 
                         window.dbData[colName] = items;
                         
                         window.updateDashStats();
                         
-                        // Perbarui halaman publik otomatis jika pengunjung sedang melihat halaman tsb
                         if (currentPublicPage === colName || (colName === 'guru' && currentPublicPage === 'struktur')) {
                             if(colName === 'guru') { window.renderGuruPublik(); window.renderStrukturPublik(); }
                             if(colName === 'berita') window.renderBeritaPublik();
                             if(colName === 'galeri') window.renderGaleriPublik();
                         }
                         
-                        // Perbarui Tabel Dasbor Operator otomatis jika Operator sedang membukanya
                         const dashPanel = document.getElementById('dash-' + colName);
                         if(dashPanel && dashPanel.classList.contains('block')) {
                             if(colName === 'guru') window.renderTableDashGuru();
@@ -657,7 +635,7 @@
                             if(colName === 'galeri') window.renderTableDashGaleri();
                             if(colName === 'ulasan') window.renderTableDashUlasan();
                         }
-                    }, (err) => console.error(`Sync ${colName} Err:`, err));
+                    });
                 };
 
                 listenCollection('guru');
@@ -667,13 +645,9 @@
 
             } catch (err) {
                 console.error("Gagal terhubung ke Cloud Database:", err);
-                window.showCustomMessage("Terjadi masalah saat menyambungkan Database.", "error");
             }
         }
 
-        // =========================================================
-        // === SISTEM NAVIGASI DASBOR ===
-        // =========================================================
         window.switchDashPanel = function(targetId) {
             try {
                 const navBtns = document.querySelectorAll('.dash-nav-btn');
@@ -703,9 +677,6 @@
             } catch(e) { console.error("Dasbor Error:", e); }
         };
 
-        // =========================================================
-        // === OTENTIKASI & MODAL OPERATOR ===
-        // =========================================================
         window.processMockLogin = function() {
             const pwd = document.getElementById('login-password').value;
             if (pwd === 'sekolahkuhebat1') {
@@ -714,7 +685,7 @@
                 dash.style.display = 'flex';
                 window.switchDashPanel('home');
                 window.showCustomMessage('Berhasil masuk ke Dasbor Operator.');
-            } else { window.showCustomMessage('Kata sandi salah atau kosong!', 'error'); }
+            } else { window.showCustomMessage('Kata sandi salah!', 'error'); }
         };
 
         window.logoutDashboard = function() {
@@ -722,7 +693,7 @@
             dash.style.display = 'none';
             window.renderBerandaSetup();
             window.navigate(currentPublicPage, false); 
-            window.showCustomMessage('Anda telah keluar dari Dasbor.');
+            window.showCustomMessage('Keluar dari Dasbor.');
         };
 
         window.openLoginModal = function() {
@@ -736,9 +707,6 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         };
 
-        // =========================================================
-        // === NAVIGASI PUBLIK ===
-        // =========================================================
         window.navigate = function(pageId, pushToHistory = true) {
             if(pushToHistory && currentPublicPage !== pageId && currentPublicPage !== 'home') navHistory.push(currentPublicPage);
             else if (pageId === 'home') navHistory = []; 
@@ -765,12 +733,9 @@
             if(navHistory.length > 0) { window.navigate(navHistory.pop(), false); } else { window.navigate('home'); }
         };
 
-        // =========================================================
-        // === RENDER DOM PUBLIK ===
-        // =========================================================
         window.renderBerandaSetup = function() {
             document.getElementById('hero-img-bg').src = window.dbData.profil.hero_img || window.FALLBACK_IMG;
-            document.getElementById('hero-gradient-overlay').className = `absolute inset-0 bg-gradient-to-r ${window.dbData.profil.gradient || 'from-secondary/90 via-secondary/70 to-transparent'} transition-all duration-500 pointer-events-none`;
+            document.getElementById('hero-gradient-overlay').className = `absolute inset-0 bg-gradient-to-r ${window.dbData.profil.gradient || 'from-secondary/90 via-secondary/70 to-transparent'} transition-all duration-500`;
             
             const ft = document.getElementById('footer-sosmed');
             ft.innerHTML = '';
@@ -874,9 +839,6 @@
             container.innerHTML = html;
         };
 
-        // =========================================================
-        // === MODALS UI ===
-        // =========================================================
         window.openProfileModal = function(id) {
             const guru = window.dbData.guru.find(g => g.id === id);
             if(!guru) return;
@@ -896,8 +858,7 @@
         };
 
         window.openLightbox = function(src, caption) {
-            document.getElementById('lightbox-img').src = src; 
-            document.getElementById('lightbox-caption').textContent = caption;
+            document.getElementById('lightbox-img').src = src; document.getElementById('lightbox-caption').textContent = caption;
             const lb = document.getElementById('lightbox');
             lb.classList.remove('hidden'); void lb.offsetWidth; lb.classList.remove('opacity-0');
         };
@@ -925,8 +886,7 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         };
 
-        // --- TAMBAH DATA (WRITE KE FIRESTORE CLOUD) ---
-        window.submitReview = function() {
+        window.submitReview = async function() {
             const btn = document.getElementById('btn-submit-review');
             const nama = document.getElementById('review-nama').value.trim();
             const peran = document.getElementById('review-peran').value.trim() || 'Pengunjung';
@@ -937,22 +897,19 @@
             if(!teks) return window.showCustomMessage('Mohon isi pesan ulasan Anda!', 'error');
             if(rating === 0) return window.showCustomMessage('Mohon berikan penilaian bintang!', 'error');
 
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...'; btn.disabled = true;
-            const newRev = { id: Date.now(), nama, peran, teks, bintang: rating };
-            
-            // Set data ke Firestore
-            setDoc(getDocRef('ulasan', String(newRev.id)), newRev).catch(e => console.error("Error:", e));
-            
-            setTimeout(() => {
-                btn.innerHTML = 'Kirim Ulasan'; btn.disabled = false;
+            try {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...'; btn.disabled = true;
+                const newRev = { id: Date.now(), nama, peran, teks, bintang: rating };
+                await setDoc(getDocRef('ulasan', String(newRev.id)), newRev);
                 window.closeReviewModal();
-                window.showCustomMessage('Terima kasih! Ulasan Anda telah diterima di Cloud.');
-            }, 600);
+                window.showCustomMessage('Terima kasih! Ulasan Anda telah diterima.');
+            } catch(e) {
+                window.showCustomMessage('Gagal mengirim ulasan.', 'error');
+            } finally {
+                btn.innerHTML = 'Kirim Ulasan'; btn.disabled = false;
+            }
         };
 
-        // =========================================================
-        // === DASBOR SPESIFIK & CRUD FIRESTORE ===
-        // =========================================================
         window.updateDashStats = function() {
             document.getElementById('stat-guru').textContent = window.dbData.guru.length;
             document.getElementById('stat-berita').textContent = window.dbData.berita.length;
@@ -971,29 +928,28 @@
         
         window.updateHeroPreview = function(val) { document.getElementById('preview-profil-hero').src = val || window.FALLBACK_IMG; };
 
-        window.saveProfil = function() {
+        window.saveProfil = async function() {
             const btn = document.getElementById('btn-save-profil');
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...'; btn.disabled = true;
-            
-            window.dbData.profil.hero_img = document.getElementById('input-profil-hero').value.trim();
-            window.dbData.profil.sosmed = {
-                fb: document.getElementById('input-sosmed-fb').value.trim(),
-                ig: document.getElementById('input-sosmed-ig').value.trim(),
-                yt: document.getElementById('input-sosmed-yt').value.trim()
-            };
-            const selectedGrad = document.querySelector('input[name="hero_grad"]:checked');
-            if(selectedGrad) window.dbData.profil.gradient = selectedGrad.value;
-            
-            // Tulis perubahan ke Firestore
-            setDoc(getDocRef('profil', 'main'), window.dbData.profil).catch(e => console.error(e));
-            
-            setTimeout(() => {
-                btn.innerHTML = 'Simpan Perubahan Cloud'; btn.disabled = false;
-                window.showCustomMessage('Pengaturan Profil berhasil disimpan ke Cloud.');
-            }, 600);
+            try {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...'; btn.disabled = true;
+                window.dbData.profil.hero_img = document.getElementById('input-profil-hero').value.trim();
+                window.dbData.profil.sosmed = {
+                    fb: document.getElementById('input-sosmed-fb').value.trim(),
+                    ig: document.getElementById('input-sosmed-ig').value.trim(),
+                    yt: document.getElementById('input-sosmed-yt').value.trim()
+                };
+                const selectedGrad = document.querySelector('input[name="hero_grad"]:checked');
+                if(selectedGrad) window.dbData.profil.gradient = selectedGrad.value;
+                
+                await setDoc(getDocRef('profil', 'main'), window.dbData.profil);
+                window.showCustomMessage('Pengaturan Profil berhasil disimpan.');
+            } catch(e) {
+                window.showCustomMessage('Gagal menyimpan profil!', 'error');
+            } finally {
+                btn.innerHTML = 'Simpan Perubahan'; btn.disabled = false;
+            }
         };
 
-        // --- Render Tabel di Dasbor ---
         const getTableHTML = (title, btnText, colsHtml, rowsHtml) => `
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <h2 class="text-2xl font-bold text-slate-800">${title}</h2>
@@ -1013,7 +969,7 @@
                     <td class="px-6 py-4"><img src="${g.foto || window.FALLBACK_IMG}" class="w-12 h-12 rounded-full object-cover border border-slate-200" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;"></td>
                     <td class="px-6 py-4"><div class="font-bold text-slate-800">${g.nama}</div><div class="text-[11px] text-slate-500 mt-0.5">${g.nip || '-'}</div></td>
                     <td class="px-6 py-4"><div class="font-medium text-slate-700">${g.jabatan}</div><div class="text-[10px] text-primary font-bold uppercase tracking-wider mt-0.5 bg-red-50 inline-block px-2 py-0.5 rounded">${g.posisi}</div></td>
-                    <td class="px-6 py-4 text-right"><button onclick="window.directDeleteData('guru', ${g.id})" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
+                    <td class="px-6 py-4 text-right"><button onclick="window.directDeleteData('guru', '${g.id}')" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
                 </tr>`).join('');
             document.getElementById('dash-guru').innerHTML = getTableHTML('Manajemen Guru & Tendik', 'Tambah Staf', cols, rows);
         };
@@ -1028,7 +984,7 @@
                             <div><div class="font-bold text-slate-800 mb-1 line-clamp-1">${b.judul}</div><div class="text-[11px] text-slate-500 flex items-center gap-2"><span><i class="fa-regular fa-calendar mr-1"></i>${b.tgl}</span><span class="w-1 h-1 bg-slate-300 rounded-full"></span><span class="text-primary font-semibold">${b.kategori}</span></div></div>
                         </div>
                     </td>
-                    <td class="px-6 py-4 text-right align-middle"><button onclick="window.directDeleteData('berita', ${b.id})" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
+                    <td class="px-6 py-4 text-right align-middle"><button onclick="window.directDeleteData('berita', '${b.id}')" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
                 </tr>`).join('');
             document.getElementById('dash-berita').innerHTML = getTableHTML('Kelola Berita & Artikel', 'Tulis Berita', cols, rows);
         };
@@ -1039,7 +995,7 @@
                 <tr class="hover:bg-slate-50 transition-colors">
                     <td class="px-6 py-4"><img src="${g.foto || window.FALLBACK_IMG}" class="w-20 h-14 rounded object-cover border border-slate-200 shadow-sm" onerror="this.onerror=null; this.src=window.FALLBACK_IMG;"></td>
                     <td class="px-6 py-4"><div class="font-bold text-slate-800 text-[15px]">${g.judul}</div><div class="text-xs text-slate-500 mt-1"><i class="fa-regular fa-clock mr-1"></i>${g.tgl}</div></td>
-                    <td class="px-6 py-4 text-right align-middle"><button onclick="window.directDeleteData('galeri', ${g.id})" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
+                    <td class="px-6 py-4 text-right align-middle"><button onclick="window.directDeleteData('galeri', '${g.id}')" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
                 </tr>`).join('');
             document.getElementById('dash-galeri').innerHTML = getTableHTML('Kelola Galeri Foto', 'Upload Foto', cols, rows);
         };
@@ -1050,22 +1006,17 @@
                 <tr class="hover:bg-slate-50 transition-colors whitespace-normal">
                     <td class="px-6 py-4 align-top"><div class="font-bold text-slate-800">${u.nama}</div><div class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mt-1 bg-slate-100 inline-block px-2 py-0.5 rounded">${u.peran}</div></td>
                     <td class="px-6 py-4 align-top"><div class="text-yellow-400 text-xs mb-2 tracking-widest">${'<i class="fa-solid fa-star"></i>'.repeat(u.bintang)}</div><div class="text-sm text-slate-600 italic leading-relaxed">"${u.teks}"</div></td>
-                    <td class="px-6 py-4 text-right align-top whitespace-nowrap"><button onclick="window.directDeleteData('ulasan', ${u.id})" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
+                    <td class="px-6 py-4 text-right align-top whitespace-nowrap"><button onclick="window.directDeleteData('ulasan', '${u.id}')" class="text-red-500 border border-red-200 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded text-xs font-bold transition-colors cursor-pointer">Hapus</button></td>
                 </tr>`).join('');
             document.getElementById('dash-ulasan').innerHTML = getTableHTML('Pantau Ulasan Masuk', null, cols, rows);
         };
 
-        // === KONTROL FORM CRUD OPERATOR ===
         window.openFormModal = function(typeTitle) {
             document.getElementById('crud-title').textContent = typeTitle;
             const body = document.getElementById('crud-form-body');
             
-            // Kembalikan status tombol simpan menjadi normal setiap kali form dibuka
             const btnSave = document.getElementById('btn-save-data');
-            if(btnSave) {
-                btnSave.innerHTML = 'Simpan Data';
-                btnSave.disabled = false;
-            }
+            if(btnSave) { btnSave.innerHTML = 'Simpan Data'; btnSave.disabled = false; }
             
             const inpt = (id, label, placeholder) => `<div class="mb-4"><label class="block text-sm font-semibold text-slate-700 mb-1.5">${label}</label><input type="text" id="${id}" class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-primary outline-none shadow-sm" placeholder="${placeholder}"></div>`;
             const txt = (id, label, p) => `<div class="mb-4"><label class="block text-sm font-semibold text-slate-700 mb-1.5">${label}</label><textarea id="${id}" rows="4" class="w-full border-slate-300 rounded-lg border p-2.5 text-sm focus:ring-2 focus:ring-primary outline-none shadow-sm" placeholder="${p}"></textarea></div>`;
@@ -1100,14 +1051,12 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         };
 
-        // --- Simpan ke Firestore ---
-        window.processSaveData = function() {
+        window.processSaveData = async function() {
             const btn = document.getElementById('btn-save-data');
             const fotoUrl = document.getElementById('f-foto').value.trim();
             const today = new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
             let newItem = {};
 
-            // 1. VALIDASI
             if(currentFormType === 'guru') {
                 const nama = document.getElementById('f-nama').value.trim();
                 if(!nama) return window.showCustomMessage('Nama lengkap wajib diisi!', 'error');
@@ -1121,25 +1070,19 @@
                 newItem = { id: Date.now(), foto: fotoUrl, tgl: today, judul: judul || 'Foto Kegiatan' };
             }
 
-            // 2. LOADING
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...'; 
-            btn.disabled = true;
-            
-            // 3. SET DATA KE CLOUD
-            setDoc(getDocRef(currentFormType, String(newItem.id)), newItem).catch(e => {
-                console.error("Gagal simpan ke Firebase:", e);
-            });
-            
-            // 4. TUTUP FORM OTOMATIS
-            setTimeout(() => {
-                btn.innerHTML = 'Simpan Data'; 
-                btn.disabled = false;
+            try {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...'; btn.disabled = true;
+                await setDoc(getDocRef(currentFormType, String(newItem.id)), newItem);
                 window.closeFormModal(); 
                 window.showCustomMessage('Data berhasil disimpan ke Cloud!');
-            }, 600);
+            } catch(e) {
+                console.error("Gagal simpan data", e);
+                window.showCustomMessage('Gagal menyambung ke Cloud.', 'error');
+            } finally {
+                btn.innerHTML = 'Simpan Data'; btn.disabled = false;
+            }
         };
 
-        // --- Hapus dari Firestore ---
         window.directDeleteData = function(type, id) {
             pendingDelete = { type, id };
             const modal = document.getElementById('confirm-modal');
@@ -1153,28 +1096,28 @@
             pendingDelete = null;
         };
 
-        window.executeDelete = function() {
+        window.executeDelete = async function() {
             if(!pendingDelete) return;
             const btn = document.getElementById('btn-execute-delete');
             const { type, id } = pendingDelete;
             
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghapus...'; btn.disabled = true;
-            
-            // Eksekusi hapus di background
-            deleteDoc(getDocRef(type, String(id))).catch(e => console.error(e));
-            
-            setTimeout(() => {
-                btn.innerHTML = 'Ya, Hapus'; btn.disabled = false;
+            try {
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menghapus...'; btn.disabled = true;
+                await deleteDoc(getDocRef(type, String(id)));
                 window.showCustomMessage('Data berhasil dihapus dari Cloud.', 'success');
                 window.closeConfirmModal();
-            }, 600);
+            } catch(e) {
+                console.error("Gagal menghapus data", e);
+                window.showCustomMessage('Gagal menghapus data.', 'error');
+            } finally {
+                btn.innerHTML = 'Ya, Hapus'; btn.disabled = false;
+            }
         };
 
-        // === START APLIKASI KETIKA SELURUH LAYAR DIMUAT ===
         window.addEventListener('load', () => {
             window.renderBerandaSetup();
             window.navigate('home');
-            initFirebaseRealtime(); // Panggil fungsi penghubung Real-time ke Cloud Firebase Anda
+            initFirebaseRealtime();
         });
     </script>
 </body>
